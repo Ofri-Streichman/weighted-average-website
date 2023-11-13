@@ -34,7 +34,7 @@
         var totalWeightedSum = 0;
         var totalWeight = 0;
 
-        for (var i = 1; i < rows.length; i++) {
+        for (var i = 1; i < rows.length - 1; i++) {
           var weight = parseFloat(
             rows[i].cells[1].getElementsByTagName("input")[0].value
           );
@@ -72,7 +72,7 @@
         var table = document.getElementById("gradesTable");
         var data = [];
 
-        for (var i = 1; i < table.rows.length; i++) {
+        for (var i = 1; i < table.rows.length - 1; i++) {
           var row = table.rows[i];
           var subject = row.cells[0].getElementsByTagName("input")[0].value;
           var weight = row.cells[1].getElementsByTagName("input")[0].value;
@@ -136,7 +136,7 @@
         <th>Subject</th>
         <th>Weight</th>
         <th>Final Grade</th>
-        <th>Remove</th>
+        <th></th>
       </tr>
       <tr>
         <td><input type="text" placeholder="Subject" /></td>
@@ -144,11 +144,10 @@
         <td><input type="number" placeholder="Final Grade" /></td>
         <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
       </tr>
+      <tr>
+        <td colspan="4"><button onclick="addRow()">+</button></td>
+      </tr>
     </table>
-
-    <div class="add-button-wrapper">
-      <button id="add-row-btn" onclick="addRow()">+</button>
-    </div>
 
     <button onclick="calculateAverage()">Calculate My Weighted Average</button>
     <button onclick="downloadGradesheet()">Download Gradesheet</button>
