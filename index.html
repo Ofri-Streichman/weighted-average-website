@@ -129,7 +129,33 @@
     <title>Interactive Grades Calculator</title>
   </head>
   <body>
-    <h1>Your Grades:</h1>
+    <h1>Weighted Average Calculator!</h1>
+    <p>
+      This simple tool allows you to manage and calculate your weighted grades
+      effortlessly. Follow the instructions below to get started:
+    </p>
+    <ol>
+      <li>
+        Fill in the "Subject," "Weight," and "Final Grade" columns for your
+        initial row.
+      </li>
+      <li>
+        To add more rows, click the "+" button. Each row represents a subject's
+        weight and final grade.
+      </li>
+      <li>
+        Hover over a row to reveal the "Remove" button and delete any unwanted
+        entries.
+      </li>
+      <li>
+        Click "Calculate My Weighted Average" to compute your overall weighted
+        average.
+      </li>
+      <li>
+        Download your gradesheet by clicking "Download Gradesheet" or add
+        previous data using the "Add Gradesheet" button.
+      </li>
+    </ol>
 
     <table id="gradesTable">
       <tr>
@@ -147,7 +173,9 @@
       <tr>
         <td colspan="4" style="display: table-cell">
           <div class="add-button-wrapper">
-            <button onclick="addRow()" style="align-self: end; margin-top: 0;">+</button>
+            <button onclick="addRow()" style="align-self: end; margin-top: 0">
+              +
+            </button>
           </div>
         </td>
       </tr>
