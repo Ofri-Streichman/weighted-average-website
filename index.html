@@ -34,7 +34,7 @@
         var totalWeightedSum = 0;
         var totalWeight = 0;
 
-        for (var i = 1; i < rows.length - 1; i++) {
+        for (var i = 1; i < rows.length; i++) {
           var weight = parseFloat(
             rows[i].cells[1].getElementsByTagName("input")[0].value
           );
@@ -57,7 +57,8 @@
         }
 
         var average = totalWeightedSum / totalWeight;
-        alert("Your weighted average is: " + average.toFixed(2));
+        document.getElementById("average").innerHTML =
+          "Your weighted average is: " + average.toFixed(2);
       }
 
       function validateNumericInput(input) {
@@ -71,7 +72,7 @@
         var table = document.getElementById("gradesTable");
         var data = [];
 
-        for (var i = 1; i < table.rows.length - 1; i++) {
+        for (var i = 1; i < table.rows.length; i++) {
           var row = table.rows[i];
           var subject = row.cells[0].getElementsByTagName("input")[0].value;
           var weight = row.cells[1].getElementsByTagName("input")[0].value;
@@ -143,11 +144,6 @@
         <td><input type="number" placeholder="Final Grade" /></td>
         <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
       </tr>
-      <tr>
-        <!-- <td colspan="4">
-          <button id="add-row-btn" onclick="addRow()">+</button>
-        </td> -->
-      </tr>
     </table>
 
     <div class="add-button-wrapper">
@@ -164,5 +160,8 @@
     />
 
     <button onclick="uploadGradesheet()">Add Gradesheet</button>
+    <div class="add-button-wrapper">
+      <h2 id="average"></h2>
+    </div>
   </body>
 </html>

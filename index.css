@@ -10,7 +10,6 @@ table {
     border-collapse: collapse;
     width: 70%;
     margin-top: 20px;
-    /* margin-bottom: 60px; */
 }
 
 th, td {
@@ -78,9 +77,9 @@ tr td:last-child {
 
 #add-row-btn{
     position: relative;
-    left:70%;
-    bottom: 20px;
+    left:calc(85% - 60px);
     display: block;
+    margin-top: 5px;
     
 }
 
