@@ -71,10 +71,6 @@ tr td:last-child {
     justify-content: center;
 }
 
-tr:last-child td:last-child{
-    display: table-cell;
-}
-
 #add-row-btn{
     position: relative;
     left:calc(85% - 60px);
