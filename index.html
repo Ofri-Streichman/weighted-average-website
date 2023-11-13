@@ -162,7 +162,7 @@
         <th>Subject</th>
         <th>Weight</th>
         <th>Final Grade</th>
-        <th></th>
+        <th>Remove</th>
       </tr>
       <tr>
         <td><input type="text" placeholder="Subject" /></td>
@@ -181,18 +181,23 @@
       </tr>
     </table>
 
-    <button onclick="calculateAverage()">Calculate My Weighted Average</button>
-    <button onclick="downloadGradesheet()">Download Gradesheet</button>
-    <input
-      type="file"
-      id="uploadGradesheet"
-      style="display: none"
-      onchange="addGradesheet(event)"
-    />
+    <div class="side-align-container">
+      <button onclick="calculateAverage()">
+        Calculate My Weighted Average
+      </button>
+              <h2 id="average"></h2>
 
-    <button onclick="uploadGradesheet()">Add Gradesheet</button>
-    <div class="average-wrapper">
-      <h2 id="average"></h2>
+    </div>
+    <div class="side-align-container">
+      <button onclick="downloadGradesheet()">Download Gradesheet</button>
+      <input
+        type="file"
+        id="uploadGradesheet"
+        style="display: none"
+        onchange="addGradesheet(event)"
+      />
+
+      <button onclick="uploadGradesheet()">Add Gradesheet</button>
     </div>
   </body>
 </html>
