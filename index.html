@@ -1,142 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
     <script>
-        function addRow() {
-            var table = document.getElementById("gradesTable");
-            var newRow = table.insertRow(table.rows.length - 1);
-            
-            var subjectsCell = newRow.insertCell(0);
-            var weightsCell = newRow.insertCell(1);
-            var gradesCell = newRow.insertCell(2);
-            var deleteCell = newRow.insertCell(3);
-            
-            subjectsCell.innerHTML = '<input type="text" placeholder="Subject">';
-            weightsCell.innerHTML = '<input type="number" placeholder="Weight" oninput="validateNumericInput(this)">';
-            gradesCell.innerHTML = '<input type="number" placeholder="Final Grade" oninput="validateNumericInput(this)">';
-            deleteCell.innerHTML = '<button class="delete-btn" onclick="deleteRow(this)">-</button>';
+      function addRow() {
+        var table = document.getElementById("gradesTable");
+        var newRow = table.insertRow(table.rows.length - 1);
+
+        var subjectsCell = newRow.insertCell(0);
+        var weightsCell = newRow.insertCell(1);
+        var gradesCell = newRow.insertCell(2);
+        var deleteCell = newRow.insertCell(3);
+
+        subjectsCell.innerHTML = '<input type="text" placeholder="Subject">';
+        weightsCell.innerHTML =
+          '<input type="number" placeholder="Weight" oninput="validateNumericInput(this)">';
+        gradesCell.innerHTML =
+          '<input type="number" placeholder="Final Grade" oninput="validateNumericInput(this)">';
+        deleteCell.innerHTML =
+          '<button class="delete-btn" onclick="deleteRow(this)">-</button>';
+      }
+
+      function deleteRow(btn) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      }
+
+      function calculateAverage() {
+        var table = document.getElementById("gradesTable");
+        var rows = table.rows;
+        var totalWeightedSum = 0;
+        var totalWeight = 0;
+
+        for (var i = 1; i < rows.length - 1; i++) {
+          var weight = parseFloat(
+            rows[i].cells[1].getElementsByTagName("input")[0].value
+          );
+          var grade = parseFloat(
+            rows[i].cells[2].getElementsByTagName("input")[0].value
+          );
+
+          if (isNaN(weight) || isNaN(grade)) {
+            alert("Please enter numerical values for Weight and Final Grade.");
+            return;
+          }
+
+          totalWeightedSum += weight * grade;
+          totalWeight += weight;
         }
 
-        function deleteRow(btn) {
-            var row = btn.parentNode.parentNode;
-            row.parentNode.removeChild(row);
+        if (totalWeight === 0) {
+          alert("Please add at least one row with non-zero weight.");
+          return;
         }
 
-        function calculateAverage() {
-            var table = document.getElementById("gradesTable");
-            var rows = table.rows;
-            var totalWeightedSum = 0;
-            var totalWeight = 0;
+        var average = totalWeightedSum / totalWeight;
+        alert("Your weighted average is: " + average.toFixed(2));
+      }
 
-            for (var i = 1; i < rows.length - 1; i++) {
-                var weight = parseFloat(rows[i].cells[1].getElementsByTagName("input")[0].value);
-                var grade = parseFloat(rows[i].cells[2].getElementsByTagName("input")[0].value);
+      function validateNumericInput(input) {
+        if (isNaN(input.value)) {
+          alert("Please enter a numerical value.");
+          input.value = "";
+        }
+      }
 
-                if (isNaN(weight) || isNaN(grade)) {
-                    alert("Please enter numerical values for Weight and Final Grade.");
-                    return;
-                }
+      function downloadGradesheet() {
+        var table = document.getElementById("gradesTable");
+        var data = [];
 
-                totalWeightedSum += weight * grade;
-                totalWeight += weight;
-            }
+        for (var i = 1; i < table.rows.length - 1; i++) {
+          var row = table.rows[i];
+          var subject = row.cells[0].getElementsByTagName("input")[0].value;
+          var weight = row.cells[1].getElementsByTagName("input")[0].value;
+          var grade = row.cells[2].getElementsByTagName("input")[0].value;
 
-            if (totalWeight === 0) {
-                alert("Please add at least one row with non-zero weight.");
-                return;
-            }
-
-            var average = totalWeightedSum / totalWeight;
-            alert("Your weighted average is: " + average.toFixed(2));
+          data.push({
+            Subject: subject,
+            Weight: weight,
+            FinalGrade: grade,
+          });
         }
 
-        function validateNumericInput(input) {
-            if (isNaN(input.value)) {
-                alert("Please enter a numerical value.");
-                input.value = "";
-            }
-        }
+        var jsonData = JSON.stringify(data);
+        var blob = new Blob([jsonData], { type: "application/json" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "gradesheet.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
 
-        function downloadGradesheet() {
-            var table = document.getElementById("gradesTable");
-            var data = [];
+      function addGradesheet(event) {
+        var input = event.target;
+        var reader = new FileReader();
 
-            for (var i = 1; i < table.rows.length - 1; i++) {
-                var row = table.rows[i];
-                var subject = row.cells[0].getElementsByTagName("input")[0].value;
-                var weight = row.cells[1].getElementsByTagName("input")[0].value;
-                var grade = row.cells[2].getElementsByTagName("input")[0].value;
+        reader.onload = function () {
+          var data = JSON.parse(reader.result);
 
-                data.push({
-                    "Subject": subject,
-                    "Weight": weight,
-                    "FinalGrade": grade
-                });
-            }
+          for (var i = 0; i < data.length; i++) {
+            var newRow = document
+              .getElementById("gradesTable")
+              .insertRow(
+                document.getElementById("gradesTable").rows.length - 1
+              );
+            newRow.insertCell(0).innerHTML =
+              '<input type="text" value="' + data[i].Subject + '">';
+            newRow.insertCell(1).innerHTML =
+              '<input type="number" value="' + data[i].Weight + '">';
+            newRow.insertCell(2).innerHTML =
+              '<input type="number" value="' + data[i].FinalGrade + '">';
+            newRow.insertCell(3).innerHTML =
+              '<button class="delete-btn" onclick="deleteRow(this)">-</button>';
+          }
+        };
 
-            var jsonData = JSON.stringify(data);
-            var blob = new Blob([jsonData], { type: "application/json" });
-            var link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "gradesheet.json";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        reader.readAsText(input.files[0]);
+      }
 
-        function addGradesheet(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            
-            reader.onload = function(){
-                var data = JSON.parse(reader.result);
-
-                for (var i = 0; i < data.length; i++) {
-                    var newRow = document.getElementById("gradesTable").insertRow(document.getElementById("gradesTable").rows.length - 1);
-                    newRow.insertCell(0).innerHTML = '<input type="text" value="' + data[i].Subject + '">';
-                    newRow.insertCell(1).innerHTML = '<input type="number" value="' + data[i].Weight + '">';
-                    newRow.insertCell(2).innerHTML = '<input type="number" value="' + data[i].FinalGrade + '">';
-                    newRow.insertCell(3).innerHTML = '<button class="delete-btn" onclick="deleteRow(this)">-</button>';
-                }
-            };
-
-            reader.readAsText(input.files[0]);
-        }
-
-        function uploadGradesheet() {
-            document.getElementById("uploadGradesheet").click();
-        }
+      function uploadGradesheet() {
+        document.getElementById("uploadGradesheet").click();
+      }
     </script>
     <title>Interactive Grades Calculator</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Your Grades:</h1>
-    
+
     <table id="gradesTable">
-        <tr>
-            <th>Subject</th>
-            <th>Weight</th>
-            <th>Final Grade</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td><input type="text" placeholder="Subject"></td>
-            <td><input type="number" placeholder="Weight"></td>
-            <td><input type="number" placeholder="Final Grade"></td>
-            <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
-        </tr>
-        <tr>
-            <td colspan="4"><button onclick="addRow()">+</button></td>
-        </tr>
+      <tr>
+        <th>Subject</th>
+        <th>Weight</th>
+        <th>Final Grade</th>
+        <th>Remove</th>
+      </tr>
+      <tr>
+        <td><input type="text" placeholder="Subject" /></td>
+        <td><input type="number" placeholder="Weight" /></td>
+        <td><input type="number" placeholder="Final Grade" /></td>
+        <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
+      </tr>
+      <tr>
+        <!-- <td colspan="4">
+          <button id="add-row-btn" onclick="addRow()">+</button>
+        </td> -->
+      </tr>
     </table>
+
+    <div class="add-button-wrapper">
+
+    </div>
 
     <button onclick="calculateAverage()">Calculate My Weighted Average</button>
     <button onclick="downloadGradesheet()">Download Gradesheet</button>
-    <input type="file" id="uploadGradesheet" style="display:none;" onchange="addGradesheet(event)">
+    <input
+      type="file"
+      id="uploadGradesheet"
+      style="display: none"
+      onchange="addGradesheet(event)"
+    />
 
     <button onclick="uploadGradesheet()">Add Gradesheet</button>
-</body>
+  </body>
 </html>

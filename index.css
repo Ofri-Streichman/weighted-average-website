@@ -10,6 +10,7 @@ table {
     border-collapse: collapse;
     width: 70%;
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 th, td {
@@ -33,25 +34,51 @@ input:focus {
     outline: none;
 }
 
+
+
+button {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 10px 20px ;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+
+}
+
 .delete-btn {
     display: inline-block;
     visibility: hidden;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
+    color: red;
+    padding: 5px 10px ;
+
+    background-color: white;
+    border: 3px solid;
+    border-radius: 15px;
     cursor: pointer;
+    margin:0;
 }
 
 tr:hover .delete-btn {
     visibility: visible;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+tr td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+tr:last-child td:last-child{
+    display: table-cell;
+}
+
+#add-row-btn{
+    position: relative;
+    right: 0px;
+    display: block;
+    
 }
