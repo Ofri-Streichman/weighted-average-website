@@ -168,7 +168,11 @@
         <td><input type="text" placeholder="Subject" /></td>
         <td><input type="number" placeholder="Weight" /></td>
         <td><input type="number" placeholder="Final Grade" /></td>
-        <td><button class="delete-btn" onclick="deleteRow(this)"><img class="trash" src = "trash-can-solid.svg"/></button></td>
+        <td>
+          <button class="delete-btn" onclick="deleteRow(this)">
+            <img class="trash" src="trash-can-solid.svg" />
+          </button>
+        </td>
       </tr>
       <tr>
         <td colspan="4" style="display: table-cell">
@@ -185,8 +189,7 @@
       <button onclick="calculateAverage()">
         Calculate My Weighted Average
       </button>
-              <h2 id="average"></h2>
-
+      <h2 id="average"></h2>
     </div>
     <div class="side-align-container">
       <button onclick="downloadGradesheet()">Download Gradesheet</button>
@@ -200,4 +203,14 @@
       <button onclick="uploadGradesheet()">Add Gradesheet</button>
     </div>
   </body>
+  <div class="footer">
+    <p class="rights-reserved">
+      <!-- <img
+          class="logo"
+          src="your-rights-reserved-logo.png"
+          alt="Rights Reserved Logo"
+        /> -->
+      All Rights Reserved &copy; Ofri Streichman 2023
+    </p>
+  </div>
 </html>
