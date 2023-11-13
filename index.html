@@ -145,7 +145,11 @@
         <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
       </tr>
       <tr>
-        <td colspan="4" style="display: table-cell"><button onclick="addRow()">+</button></td>
+        <td colspan="4" style="display: table-cell">
+          <div class="add-button-wrapper">
+            <button onclick="addRow()" style="align-self: end; margin-top: 0;">+</button>
+          </div>
+        </td>
       </tr>
     </table>
 
@@ -159,7 +163,7 @@
     />
 
     <button onclick="uploadGradesheet()">Add Gradesheet</button>
-    <div class="add-button-wrapper">
+    <div class="average-wrapper">
       <h2 id="average"></h2>
     </div>
   </body>
