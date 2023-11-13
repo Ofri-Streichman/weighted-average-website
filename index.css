@@ -18,7 +18,7 @@ table {
   margin: auto;
   border-collapse: collapse;
   width: 70%;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 th,
@@ -56,30 +56,26 @@ button {
 }
 
 .side-align-container {
-    width: 70vw;
+  width: 70vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.side-align-container h2{
-    margin-top: 20px;
-    margin-bottom: 0;
+.side-align-container h2 {
+  margin-top: 20px;
+  margin-bottom: 0;
   padding: 10px 20px;
 }
 
 .delete-btn {
   display: inline-block;
   visibility: hidden;
-  color: red;
   padding: 5px 10px;
-
-  background-color: white;
-  border: 3px solid;
-  border-radius: 15px;
   cursor: pointer;
   margin: 0;
   font-size: 2rem;
+  background-color: transparent;
 }
 
 tr:hover .delete-btn {
@@ -105,4 +101,12 @@ tr td:last-child {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.trash {
+  width: 35px;
+  height: 35px;
+  color: transparent;
+  text-shadow: 0 0 0 red;
+  filter: invert(23%) sepia(83%) saturate(6602%) hue-rotate(355deg) brightness(102%) contrast(119%);
 }

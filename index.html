@@ -20,7 +20,7 @@
         gradesCell.innerHTML =
           '<input type="number" placeholder="Final Grade" oninput="validateNumericInput(this)">';
         deleteCell.innerHTML =
-          '<button class="delete-btn" onclick="deleteRow(this)">-</button>';
+          '<button class="delete-btn" onclick="deleteRow(this)"><img class="trash" src = "trash-can-solid.svg"/></button></button>';
       }
 
       function deleteRow(btn) {
@@ -168,7 +168,7 @@
         <td><input type="text" placeholder="Subject" /></td>
         <td><input type="number" placeholder="Weight" /></td>
         <td><input type="number" placeholder="Final Grade" /></td>
-        <td><button class="delete-btn" onclick="deleteRow(this)">-</button></td>
+        <td><button class="delete-btn" onclick="deleteRow(this)"><img class="trash" src = "trash-can-solid.svg"/></button></td>
       </tr>
       <tr>
         <td colspan="4" style="display: table-cell">
